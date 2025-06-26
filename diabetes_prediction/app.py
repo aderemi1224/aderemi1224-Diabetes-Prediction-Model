@@ -1,15 +1,18 @@
 
 import streamlit as st
 import pandas as pd
-import joblib
+import cloudpickle
 import os
 
 # Get current directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Load models
-rf_model = joblib.load(os.path.join(current_dir, "random_forest_classifier_model.pkl"))
-lin_model = joblib.load(os.path.join(current_dir, "linear_model.pkl"))
+# Load models using cloudpickle
+with open(os.path.join(current_dir, "random_forest_classifier_model.pkl"), "rb") as f:
+    rf_model = cloudpickle.load(f)
+
+with open(os.path.join(current_dir, "linear_model.pkl"), "rb") as f:
+    lin_model = cloudpickle.load(f)
 
 # Title
 st.title("Diabetes Outcome Prediction App")
